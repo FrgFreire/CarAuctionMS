@@ -10,6 +10,44 @@ namespace CarAuctionMS.TestProject
         private readonly AuctionManager manager = new();
 
         [Fact]
+        public void GetAllVehicles_Empty_Succeeds()
+        {
+            var vehicles = manager.GetAllVehicles();
+            Assert.Empty(vehicles);
+        }
+
+        [Fact]
+        public void GetAllAuctions_Empty_Succeeds()
+        {
+            var auctions = manager.GetAllAuctions();
+            Assert.Empty(auctions);
+        }
+
+        [Fact]
+        public void GetAllVehicles_NotEmpty_Succeeds()
+        {
+            var carA = new Hatchback("H1", "Honda", "Fit", 2021, 8000m, 4);
+            var carB = new Hatchback("F1", "Ford", "Focus", 2019, 7000m, 4);
+            manager.AddVehicle(carA);
+            manager.AddVehicle(carB);
+            var vehicles = manager.GetAllVehicles();
+            Assert.NotEmpty(vehicles);
+        }
+
+        [Fact]
+        public void GetAllAuctions_NotEmpty_Succeeds()
+        {
+            var carA = new Hatchback("H1", "Honda", "Fit", 2021, 8000m, 4);
+            var carB = new Hatchback("F1", "Ford", "Focus", 2019, 7000m, 4);
+            manager.AddVehicle(carA);
+            manager.AddVehicle(carB);
+            manager.StartAuction("H1");
+            manager.StartAuction("F1");
+            var auctions = manager.GetAllAuctions();
+            Assert.NotEmpty(auctions);
+        }
+
+        [Fact]
         public void AddVehicle_UniqueId_Succeeds()
         {
             var car = new Sedan("S1", "Toyota", "Camry", 2020, 10000m, 4);
@@ -31,6 +69,15 @@ namespace CarAuctionMS.TestProject
         public void StartAuction_NonexistentVehicle_Throws()
         {
             Assert.Throws<VehicleNotFoundException>(() => manager.StartAuction("X1"));
+        }
+
+        [Fact]
+        public void StartAuctionAlreadyActive_Throws()
+        {
+            var suv = new SUV("U1", "Jeep", "Wrangler", 2022, 15000m, 5);
+            manager.AddVehicle(suv);
+            manager.StartAuction("U1");
+            Assert.Throws<AuctionAlreadyActiveException>(() => manager.StartAuction("U1"));
         }
 
         [Fact]
@@ -62,11 +109,19 @@ namespace CarAuctionMS.TestProject
         }
 
         [Fact]
+        public void PlaceBid_AuctionNotFound_Throws()
+        {
+            var suv = new SUV("U1", "Jeep", "Wrangler", 2022, 15000m, 5);
+            manager.AddVehicle(suv);
+            Assert.Throws<AuctionNotFoundException>(() => manager.PlaceBid("U1", "Bob", 16000m));
+        }
+
+        [Fact]
         public void CloseAuction_NotActive_Throws()
         {
             var car = new Sedan("S2", "BMW", "3 Series", 2023, 25000m, 4);
             manager.AddVehicle(car);
-            Assert.Throws<AuctionNotFoundException>(() => manager.CloseAuction("S2"));
+            Assert.Throws<AuctionNotActiveException>(() => manager.CloseAuction("S2"));
         }
     }
 }

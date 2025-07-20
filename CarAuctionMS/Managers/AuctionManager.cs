@@ -68,7 +68,7 @@ namespace CarAuctionMS.Managers
         public void CloseAuction(string vehicleId)
         {
             if (!_auctions.TryGetValue(vehicleId, out var auction))
-                throw new AuctionNotFoundException(vehicleId);
+                throw new AuctionNotActiveException(vehicleId);
 
             auction.Close();
         }
