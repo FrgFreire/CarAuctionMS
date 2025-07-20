@@ -13,7 +13,7 @@ CarAuctionMS -  A class library housing all domain entities (Vehicle, Bid, Aucti
 
 CarAuctionConsoleApp - A .NET console application that references the core library and provides an interactive menu for adding vehicles, searching inventory, starting/closing auctions, and placing bids.
 
-CarAuctionMS.Test - An xUnit test project covering the core library’s functionality, including edge cases and error conditions.
+CarAuctionMS.TestProject - An xUnit test project covering the core library’s functionality, including edge cases and error conditions.
 
 
 # Prerequisites
