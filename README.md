@@ -9,11 +9,11 @@ It demonstrates a clean, object-oriented core library for vehicles and auctions,
 
 # Projects
 
-CarAuction.Core -  A class library housing all domain entities (Vehicle, Bid, Auction), managers (IAuctionManager, AuctionManager), and custom exceptions.
+CarAuctionMS -  A class library housing all domain entities (Vehicle, Bid, Auction), managers (IAuctionManager, AuctionManager), and custom exceptions.
 
-CarAuction.ConsoleApp - A .NET console application that references the core library and provides an interactive menu for adding vehicles, searching inventory, starting/closing auctions, and placing bids.
+CarAuctionConsoleApp - A .NET console application that references the core library and provides an interactive menu for adding vehicles, searching inventory, starting/closing auctions, and placing bids.
 
-CarAuction.Tests - An xUnit test project covering the core library’s functionality, including edge cases and error conditions.
+CarAuctionMS.Test - An xUnit test project covering the core library’s functionality, including edge cases and error conditions.
 
 
 # Prerequisites
